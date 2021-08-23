@@ -5,10 +5,10 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Movement Variable")]
-    [SerializeField] float speed=250f;
-    [SerializeField] float jumpForce =250f;
+    [SerializeField] float speed = 250f;
+    [SerializeField] float jumpForce = 250f;
     [SerializeField] float maxVelocity = 2f;
-   
+
     [Header("Component")]
     public Rigidbody2D rigidbody2D;
 
@@ -31,5 +31,13 @@ public class Movement : MonoBehaviour
         }
 
         rigidbody2D.AddForce(new Vector2(forceX, rigidbody2D.velocity.y));
+    }
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Coin"))
+        {
+            Destroy(collider.gameObject);
+            GameManager.Instance.UpdateCoins();
+        }
     }
 }

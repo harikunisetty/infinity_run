@@ -21,5 +21,10 @@ public class cameraScripit : MonoBehaviour
                               speed);
     }
 
-   
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject != null)
+            Debug.Log(collision.gameObject.name);
+            Destroy(collision.gameObject);
+    }
 }

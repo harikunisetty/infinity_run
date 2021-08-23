@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
+
     [SerializeField] GameObject player;
-    [SerializeField] GameObject[] platfroms;
+    [SerializeField] GameObject[] blocks;
  
     [SerializeField] float blockpointer;
     [SerializeField] float safearea;
 
+    public int Coins { get => coins; }
+    private int coins;
+
+    public static GameManager Instance;
+
     private void Awake()
     {
-        GameObject GO = Instantiate(platfroms[0], transform.position, Quaternion.identity);
+        GameObject GO = Instantiate(blocks[0], transform.position, Quaternion.identity);
         GO.transform.SetParent(transform);
 
         GO.transform.position = Vector3.zero;
+
+        if (Instance != null)
+            DestroyImmediate(gameObject);
+        else
+            Instance = this;
+
+        DontDestroyOnLoad(Instance);
     }
 
     void Start()
@@ -30,7 +45,8 @@ public class GameManager : MonoBehaviour
 
         while (blockpointer < player.transform.position.x + safearea)
         {
-            GameObject GO = Instantiate(platfroms[0], transform.position, Quaternion.identity);
+            int index = Random.Range(0, blocks.Length);
+            GameObject GO = Instantiate(blocks[index], transform.position, Quaternion.identity);
             GO.transform.SetParent(transform);
 
             PlatformController platfrom = GO.GetComponent<PlatformController>();
@@ -41,4 +57,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    public void UpdateCoins()
+    {
+        coins++;
+
+        UI_Manager.Instance.coinsCountUI();
+    }
+
+
 }
