@@ -10,9 +10,7 @@ public class Fire : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            Destroy(other.gameObject); // collided(enemy) gameobject
-
-            
+            GameManager.Instance.Reload(); // collided(enemy) gameobject            
         }
     }
    

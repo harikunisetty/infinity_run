@@ -29,8 +29,6 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
         else
             Instance = this;
-
-        DontDestroyOnLoad(Instance);
     }
 
     void Start()
@@ -62,6 +60,11 @@ public class GameManager : MonoBehaviour
         coins++;
 
         UI_Manager.Instance.coinsCountUI();
+    }
+
+    public void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 

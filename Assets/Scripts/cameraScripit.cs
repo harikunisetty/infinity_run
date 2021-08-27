@@ -16,6 +16,9 @@ public class cameraScripit : MonoBehaviour
 
     void LateUpdate()
     {
+        if (playerTrans == null)
+            return;
+
         transform.position = Vector3.Slerp(transform.position,
                               new Vector3(playerTrans.position.x, transform.position.y, transform.position.z),
                               speed);
@@ -24,7 +27,6 @@ public class cameraScripit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject != null)
-            Debug.Log(collision.gameObject.name);
             Destroy(collision.gameObject);
     }
 }
